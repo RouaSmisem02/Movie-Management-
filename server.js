@@ -6,7 +6,13 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-const client = new pg.Client('postgresql://localhost:5432/moviesdatabase');
+const Database = process.env.PG_DATABASE
+const UserName= process.env.PG_USER
+const password = process.env.PG_PASSWORD
+const Host = process.env.PG_HOST
+const Port= process.env.PG_PORT
+const client = new pg.Client(`postgresql://${UserName}:${password}@${Host}:${Port}/${Database}`);
+const PORT = 8080;
 const moviesData = require('./Movie Data/data.json');
 function Movie(id, title, release_date, posterPath, overview) {
     this.id = id;
